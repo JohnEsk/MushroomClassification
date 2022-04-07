@@ -1,0 +1,43 @@
+select{
+
+    background-color: white;
+    color:black;
+    width: 10%;
+    height : 20px;
+    margin-top : 20px;
+}
+
+p{  display:inline-block;
+    font-size: 15px;
+    color:black;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+body{
+    background-color: rgb(224,52,103);
+}
+#title{
+font-size: 38px;
+margin-left: 30%;
+
+}
+div{
+display: flex;
+justify-content : space-between;
+}
+
+
+#bouttonne{
+display : flex;
+justify-content : center;
+}
+#outputdiv{
+display : flex;
+justify-content : center;
+}
+#pics{
+display : flex;
+justify-content : center;
+column-gap : 10%;
+}

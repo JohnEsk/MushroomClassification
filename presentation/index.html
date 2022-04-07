@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="styles.css">
+<body>
+<p id="title">Mushroom poisonous/edible classifier </p>
+
+<div class="firtfour">
+<p>Are there bruises</p>
+<select id="bruises" >
+    <option value="true">Yes</option>
+    <option value="false">No</option>
+</select>
+
+<p>
+    How is the space between the gills?
+</p>
+
+<select id="gillspace">
+    <option value="close">close</option>
+    <option value="crowded">crowded</option>
+</select>
+
+
+<p>How is the gill-size ? </p>
+<select id="gillsize" >
+    <option value="broad">broad</option>
+    <option value="narrow">narrow</option>
+</select>
+<p> What color are the gills ? </p>
+
+<select id="gillcolor">
+    <option value="buff">buff</option>
+    <option value="red">red</option>
+    <option value="gray">gray</option>
+    <option value="chocolate">chocolate</option>
+    <option value="black">black</option>
+    <option value="brown">brown</option>
+    <option value="orange">orange</option>
+    <option value="pink">pink</option>
+    <option value="green">green</option>
+    <option value="purple">purple</option>
+    <option value="white">white</option>
+    <option value="yellow">yellow</option>
+</select>
+</div>
+
+
+<div class="secondfour">
+<p> What shape is it's stalk-root ? </p>
+<select id="stalkroot">
+    <option value="?">Unknown</option>
+    <option value="bulbous">bulbous</option>
+    <option value="club">club shaped</option>
+    <option value="equal">equal</option>
+    <option value="rooted">rooted</option>
+
+</select>
+
+<p> How is the stalk surface above its ring ? </p>
+<select id="stalkabove">
+    <option value="fibrous">fibrous</option>
+    <option value="silky">silky</option>
+    <option value="smooth">smooth</option>
+    <option value="scaly">scaly</option>
+</select>
+
+<p> How is the stalk surface below its ring ? </p>
+<select id="stalkbelow">
+    <option value="fibrous">fibrous</option>
+    <option value="silky">silky</option>
+    <option value="smooth">smooth</option>
+    <option value="scaly">scaly</option>
+</select>
+
+<p> How many rings does it have ? </p>
+<select id="ringnumber">
+    <option value="none">none</option>
+    <option value="one">one</option>
+    <option value="two">two</option>
+</select>
+</div>
+
+
+<p> What kind of rings does it have ? </p>
+<select id="ringtype">
+    <option value="none">none</option>
+    <option value="evanescent">evanescent</option>
+    <option value="flaring">flaring</option>
+    <option value="large">large</option>
+    <option value="pendant">pendant</option>
+</select>
+
+<p> How does the mushroom growth pattern ? </p>
+<select id="population">
+    <option value="abundant">abundant</option>
+    <option value="clustered">evanescent</option>
+    <option value="numerous">numerous</option>
+    <option value="scattered">scattered</option>
+    <option value="several">several</option>
+    <option value="solitary">solitary</option>
+</select>
+
+    <p> What habitat is optimal for it ? </p>
+<select id="habitat">
+    <option value="woods">woods</option>
+    <option value="grasses">grasses</option>
+    <option value="leaves">leaves</option>
+    <option value="meadows">meadows</option>
+    <option value="paths">paths</option>
+    <option value="urban">urban</option>
+    <option value="waste">waste</option>
+</select>
+
+<br></br>
+
+<div id="bouttonne">
+<button id="submit" onClick="send()">Submit</button>
+</div>
+
+<div id="outputdiv">
+<p id = "output">  </p>
+</div>
+
+<div id="pics">
+<img src="fungus-anatomy.jpg"
+     width="565"
+     height="500" />
+
+<img id="poisonpic" src="poisonousmushrooms.slideshow.jpg"
+     width="400"
+     height="350" />
+</div>
+<script>
+
+function send(){
+    bruises = document.getElementById("bruises").value;
+    gillspace = document.getElementById("gillspace").value;
+    gillsize = document.getElementById("gillsize").value;
+    gillcolor =  document.getElementById("gillcolor").value;
+    stalkroot = document.getElementById("stalkroot").value;
+    stalkabove = document.getElementById("stalkabove").value;
+    stalkbelow = document.getElementById("stalkbelow").value;
+    ringnumber = document.getElementById("ringnumber").value;
+    ringtype = document.getElementById("ringtype").value;
+    population = document.getElementById("population").value;
+    habitat = document.getElementById("habitat").value;
+
+    output_dictionary = {"bruises" : bruises, "gill-spacing":gillspace,"gill-size":gillsize, "gill-color":gillcolor,
+    "stalk-root":stalkroot, "stalk-surface-above-ring" : stalkabove,"stalk-surface-below-ring" : stalkbelow,"ring-number":ringnumber,
+    "ring-type":ringtype,"population":population,"habitat":habitat};
+
+
+    const Http = new XMLHttpRequest();
+    const url='http://127.0.0.1:5000/predict';
+    Http.open("POST", url);
+    Http.send(JSON.stringify(output_dictionary));
+
+    Http.onreadystatechange = (e) => {
+        console.log(Http.responseText)
+        var res = "The mushroom is :" + Http.responseText;
+        document.getElementById("output").innerHTML =  res ;
+    }
+
+    console.log(output_dictionary);
+}
+</script>
+
+</body>
